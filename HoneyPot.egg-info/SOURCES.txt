@@ -1,0 +1,8 @@
+README.rst
+setup.py
+HoneyPot.egg-info/PKG-INFO
+HoneyPot.egg-info/SOURCES.txt
+HoneyPot.egg-info/dependency_links.txt
+HoneyPot.egg-info/not-zip-safe
+HoneyPot.egg-info/requires.txt
+HoneyPot.egg-info/top_level.txt
