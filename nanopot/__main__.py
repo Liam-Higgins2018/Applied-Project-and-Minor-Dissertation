@@ -17,11 +17,12 @@ Options:
 #TODO replace with docopt args
 import configparser
 #config_filepath = '/etc/nanopot.ini'
-import logging
+#import logging
 import sys
 from nanopot import HoneyPot
 #Logger that
-logger = logging.getLogger('__name__')
+#logger = logging.getLogger(__name__)
+#logger.setLevel(logging.INFO)
 
 config_filepath = 'nanopot.ini'
 
@@ -33,14 +34,14 @@ ports = config.get('default', 'ports', raw=True, fallback='22,80,443,8080,8888,9
 log_filepath = config.get('default', 'logfile', raw=True, fallback='/var/log/nanopot.log')
 
 #Prints out .ini ports and logfile location
-logger.info("[*] Ports: %s" % ports)
-logger.info("[*] LogFile: %s" % log_filepath)
+#logger.info("[*] Ports: %s" % ports)
+#logger.info("[*] LogFile: %s" % log_filepath)
 
 ports_list = []
 try:
     listOfPorts = ports.split(',')
 except Exception as e:
-    logger.error('[-] Error parsing ports: %s. \nExiting.', ports)
+    print('[-] Error parsing ports: %s. \nExiting.', ports)
     sys.exit(1)
 #Import the honeypot package from itself
 honeypot = HoneyPot(listOfPorts, log_filepath)

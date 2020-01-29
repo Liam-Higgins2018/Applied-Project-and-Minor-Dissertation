@@ -23,6 +23,8 @@ class HoneyPot(object):
         #add the handler to the root logger
         self.logger = logging.getLogger(__name__)
         self.logger.info("HoneyPot initializing...")
+        self.logger.info("Ports: %s" % self.ports)
+        self.logger.info("Log File: %s" % self.log_filepath)
         #for port in ports:
          #   print("Going to listen on %s" % port)
 
