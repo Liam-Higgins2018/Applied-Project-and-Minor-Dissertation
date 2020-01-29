@@ -26,28 +26,32 @@ class HoneyPot(object):
         #for port in ports:
          #   print("Going to listen on %s" % port)
 
-        def start_listening(self):
-            for port in self.ports:
-                #Create a new listener
-                #store in self.listener[port] = new listener
-                pass
-            pass
-
-
-        server = socket.socket{} #Defaults (socket.AF_INET, SOCK_STREAM)
-        server.bind((BIND_IP, port))
-        server.listener(5)
-
-        def handle_connection(client_socket, ip, remote_port):
+        def handle_connection(self, client_socket, ip, remote_port):
             data = client_socket.recv(64)
-            logger.info("Connection form %s: %d - %s" % (ip, remote_port, data))
+            self.logger.info("Connection form %s: %d - %s" % (ip, remote_port, data))
             #Client
-            print("[*] Recieved %s" % request)
-            client_socket.send("Acknowledged.\n")
+            #print("[*] Recieved %s" % request)
+            #client_socket.send("Acknowledged.\n")
+            client_socket.send("Access Denied.\n")
             client_socket.close()
 
-        while True:
-            client, addr = server.accept()
-            print("{*}Accepted connection form %s: %d" % (addr[0], addr[1]))
-            client_handler = threading.Thread(target = handle_client,args = client,)
-            client_handler.start()
+            def start_new_listener_thread(self, port)
+                # Create a new listener
+                listener = socket
+                {}  # Defaults (socket.AF_INET, SOCK_STREAM)
+                listener.bind((BIND_IP, port))
+                listener.listen(5)
+
+                while True:
+                    client, addr = server.accept()
+                    # print("{*}Accepted connection form %s: %d" % (addr[0], addr[1]))
+                    client_handler = threading.Thread(target=handle_connection, args=(client, port, addr[0], addr[1]))
+                    client_handler.start()
+                # Store in self.listeners[port]= new listener
+                pass
+
+        def start_listening(self):
+            for port in self.ports:
+                #Starts new listener thread on the port
+                start_new_listener_thread(port)
+
