@@ -36,6 +36,7 @@ log_filepath = config.get('default', 'logfile', raw=True, fallback='/var/log/nan
 logger.info("[*] Ports: %s" % ports)
 logger.info("[*] LogFile: %s" % log_filepath)
 
+ports_list = []
 try:
     listOfPorts = ports.split(',')
 except Exception as e:
@@ -43,3 +44,4 @@ except Exception as e:
     sys.exit(1)
 #Import the honeypot package from itself
 honeypot = HoneyPot(listOfPorts, log_filepath)
+honeypot.run()
