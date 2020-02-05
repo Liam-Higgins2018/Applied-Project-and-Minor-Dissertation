@@ -1,3 +1,4 @@
-2020-01-29 19:31 INFO     HoneyPot initializing...
-2020-01-29 19:31 INFO     Ports: ['9999', '8888']
-2020-01-29 19:31 INFO     Log File: nanopot.log
+2020-02-05 18:59 INFO     HoneyPot initializing...
+2020-02-05 18:59 INFO     Ports: ['9999', '8888', '7777', '8080']
+2020-02-05 18:59 INFO     Log File: nanopot.log
+2020-02-05 18:59 INFO     Connection from 127.0.0.1: 40498 - b'hi\n'

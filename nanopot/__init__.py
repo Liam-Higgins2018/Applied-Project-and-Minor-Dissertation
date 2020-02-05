@@ -10,7 +10,7 @@ class HoneyPot(object):
     def __init__(self, ports, log_filepath):
         self.ports = ports
         self.log_filepath = log_filepath
-        self.listeners = {}
+        self.listener_threads = {}
         if len(ports) < 1:
             raise Exception("No ports provided.")
 
@@ -25,16 +25,11 @@ class HoneyPot(object):
         self.logger.info("HoneyPot initializing...")
         self.logger.info("Ports: %s" % self.ports)
         self.logger.info("Log File: %s" % self.log_filepath)
-        #for port in ports:
-         #   print("Going to listen on %s" % port)
 
     def handle_connection(self, client_socket, ip, remote_port):
         data = client_socket.recv(64)
-        self.logger.info("Connection form %s: %d - %s" % (ip, remote_port, data))
-        #Client
-        #print("[*] Recieved %s" % request)
-        #client_socket.send("Acknowledged.\n")
-        client_socket.send("Access Denied.\n")
+        self.logger.info("Connection from %s: %d - %s" % (ip, remote_port, data))
+        client_socket.send("Access Denied.\n".encode('utf8'))
         client_socket.close()
 
     def start_new_listener_thread(self, port):
@@ -42,25 +37,23 @@ class HoneyPot(object):
             listener = socket() # Defaults (socket.AF_INET, SOCK_STREAM)
             listener.bind((BIND_IP, int(port)))
             listener.listen(5)
-
             #Whenever a client is gotten, a new thread is started
             while True:
                 client, addr = listener.accept()
                 # print("{*}Accepted connection form %s: %d" % (addr[0], addr[1]))
-                client_handler = threading.Thread(target=handle_connection, args=(client, port, addr[0], addr[1]))
+                client_handler = threading.Thread(target=self.handle_connection, args=(client, addr[0], addr[1]))
                 client_handler.start()
             # Store in self.listeners[port]= new listener
             pass
 
     def start_listening(self):
         for port in self.ports:
-            self.listeners[port] = threading.Thread(target=self.start_new_listener_thread, args=(port,))
+            self.listener_threads[port] = threading.Thread(target=self.start_new_listener_thread, args=(port,))
             #Starts new listener thread on the port
-            #start_new_listener_thread(port)
-            self.listeners[port].start()
+            self.listener_threads[port].start()
 
     def run(self):
         self.start_listening()
-        while True:
-            pass
+       # while True:
+        #    pass
 
