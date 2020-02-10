@@ -54,6 +54,6 @@ class HoneyPot(object):
 
     def run(self):
         self.start_listening()
-       # while True:
-        #    pass
+         while True:
+            pass
 
